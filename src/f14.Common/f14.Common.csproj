@@ -33,7 +33,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DocumentationFile>bin\Release\$(Platform)\f14.Common.xml</DocumentationFile>
   </PropertyGroup>
 
