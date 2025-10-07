@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/f14shm4n/f14.Common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f14shm4n/f14.Common</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>NNET8</PackageTags>
+    <PackageTags>NET8</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>8.0.0.2</Version>
   </PropertyGroup>
