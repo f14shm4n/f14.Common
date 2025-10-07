@@ -53,34 +53,31 @@ namespace f14
         /// Gets a collection of attributes for the specified class member.
         /// </summary>
         /// <typeparam name="TAttribute">Type of attribute.</typeparam>
-        /// <typeparam name="TTarget">Type of object where need to find an attribute.</typeparam>
-        /// <typeparam name="TMemberInfo">Type of the member info, for example: <see cref="PropertyInfo"/>.</typeparam>
+        /// <typeparam name="TTarget">Type of object where need to find an attribute.</typeparam>        
         /// <param name="property">Member selector.</param>
         /// <param name="inherit">Include inherit attributes.</param>
         /// <returns>Collection of attributes.</returns>
-        public static IEnumerable<TAttribute> GetAttributes<TAttribute, TTarget, TMemberInfo>(Expression<Func<TTarget, object?>> property, bool inherit)
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute, TTarget>(Expression<Func<TTarget, object?>> property, bool inherit)
             where TAttribute : Attribute
-            where TMemberInfo : MemberInfo
         {
             var me = ExpressionHelper.GetMemberExpression(property);
             if (me != null)
             {
-                var memberName = me.Member.Name;
-                var memberInfoType = typeof(TMemberInfo);
+                var memberName = me.Member.Name;  
                 var ti = typeof(TTarget).GetTypeInfo();
                 MemberInfo? mi = null;
 
-                if (typeof(PropertyInfo).IsAssignableFrom(memberInfoType))
+                switch (me.Member.MemberType)
                 {
-                    mi = ti.GetProperty(memberName);
-                }
-                else if (typeof(FieldInfo).IsAssignableFrom(memberInfoType))
-                {
-                    mi = ti.GetField(memberName);
-                }
-                else if (typeof(FieldInfo).IsAssignableFrom(memberInfoType))
-                {
-                    mi = ti.GetMethod(memberName);
+                    case MemberTypes.Event:
+                        mi = ti.GetEvent(memberName);
+                        break;
+                    case MemberTypes.Field:
+                        mi = ti.GetField(memberName);
+                        break;
+                    case MemberTypes.Property:
+                        mi = ti.GetProperty(memberName);
+                        break;
                 }
 
                 if (mi != null)
@@ -90,6 +87,19 @@ namespace f14
             }
 
             return Enumerable.Empty<TAttribute>();
+        }
+
+        private static Type GetMemberInfoType(MemberTypes type)
+        {
+            return type switch
+            {
+                MemberTypes.Constructor => typeof(ConstructorInfo),
+                MemberTypes.Event => typeof(EventInfo),
+                MemberTypes.Field => typeof(FieldInfo),
+                MemberTypes.Method => typeof(MethodInfo),
+                MemberTypes.Property => typeof(PropertyInfo),
+                _ => throw new NotSupportedException($"Provided member type is not supported. MemberType: '{type}'.")
+            };
         }
     }
 }
