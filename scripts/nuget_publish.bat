@@ -1,1 +1,3 @@
-dotnet nuget push ..\src\f14.Common\bin\Release\f14.Common.8.0.0.nupkg --api-key %1 --source https://api.nuget.org/v3/index.json
+dotnet build -c Release
+dotnet pack
+dotnet nuget push .\src\f14.Common\bin\Release\ --api-key %1 --source https://api.nuget.org/v3/index.json --skip-duplicate
