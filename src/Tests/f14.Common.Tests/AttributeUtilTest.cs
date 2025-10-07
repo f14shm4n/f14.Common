@@ -20,11 +20,11 @@ namespace f14.Common.Tests
         [Test]
         public void GetAttributes_Expression()
         {
-            var atts = AttributeUtil.GetAttributes<DisplayAttribute, ExpressionTestModel, PropertyInfo>(x => x.IntType, false);
+            var atts = AttributeUtil.GetAttributes<DisplayAttribute, ExpressionTestModel>(x => x.IntType, false);
 
             Assert.AreEqual("IntType", atts.First().Name);
 
-            var atts2 = AttributeUtil.GetAttributes<RequiredAttribute, ExpressionTestModel, PropertyInfo>(x => x.StringType, false);
+            var atts2 = AttributeUtil.GetAttributes<RequiredAttribute, ExpressionTestModel>(x => x.StringType, false);
 
             Assert.IsNotEmpty(atts2);
         }

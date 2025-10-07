@@ -5,7 +5,7 @@ namespace f14
     /// <summary>
     /// Provides methods to generate randome values.
     /// </summary>
-    public sealed class RandomHelper
+    public static class RandomHelper
     {
         private static readonly Random _rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 

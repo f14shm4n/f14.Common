@@ -15,7 +15,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>2.1.6.5</Version>
+    <Version>2.1.7.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Linq.Async" Version="4.1.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
