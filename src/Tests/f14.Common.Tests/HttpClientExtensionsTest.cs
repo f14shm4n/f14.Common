@@ -1,14 +1,11 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace f14.Common.Tests
 {
-    [TestFixture]
     public class HttpClientExtensionsTest
     {
-        [Test]
+        [Fact]
         public async Task GetAsync()
         {
             var httpClient = new HttpClient();
@@ -19,7 +16,7 @@ namespace f14.Common.Tests
             var response = await httpClient.GetAsync("https://www.youtube.com/playlist?list=PLFgquLnL59an-oQxF1-GKCJ-0eWXYkOoH", null, 3, default);
 
             Assert.NotNull(response);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }

@@ -1,32 +1,26 @@
 ﻿using f14.Common.Tests.Models;
-using NUnit.Framework;
+using FluentAssertions;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
 
 namespace f14.Common.Tests
 {
-    [TestFixture]
     public class AttributeUtilTest
-    {        
-        [Test]
+    {
+        [Fact]
         public void GetAttributesFromEnumValue()
         {
             var displayAttrs = AttributeUtil.GetAttributesFromEnumValue<DisplayAttribute, FancyEnum>(FancyEnum.Sample_0);
-
-            Assert.AreEqual("Sample_0", displayAttrs[0].Name);
+            displayAttrs[0].Name.Should().Be("Sample_0");
         }
 
-        [Test]
+        [Fact]
         public void GetAttributes_Expression()
         {
             var atts = AttributeUtil.GetAttributes<DisplayAttribute, ExpressionTestModel>(x => x.IntType, false);
-
-            Assert.AreEqual("IntType", atts.First().Name);
+            atts.First().Name.Should().Be("IntType");
 
             var atts2 = AttributeUtil.GetAttributes<RequiredAttribute, ExpressionTestModel>(x => x.StringType, false);
-
-            Assert.IsNotEmpty(atts2);
+            atts2.Should().NotBeEmpty();
         }
     }
 }

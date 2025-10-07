@@ -16,14 +16,6 @@ namespace System
             }
         }
 
-        public static async IAsyncEnumerable<T> CreateEnumerableAsync<T>(this int iterationCount, Func<int, int, Task<T>> factory)
-        {
-            for (var i = 1; i <= iterationCount; i++)
-            {
-                yield return await factory(i, iterationCount).ConfigureAwait(false);
-            }
-        }
-
         public static List<T> CreateList<T>(this int iterationCount, Func<int, int, T> factory)
         {
             return iterationCount.CreateEnumerable(factory).ToList();

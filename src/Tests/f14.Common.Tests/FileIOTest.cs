@@ -1,46 +1,39 @@
 ﻿using f14.IO;
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace f14.Common.Tests
 {
-    [TestFixture]
     public class FileIOTest
     {
         private const string StringsFilePath = "Resources/strings.txt";
 
-        [Test]
+        [Fact]
         public async Task ReadToEndAsync()
         {
             var content = await FileIO.ReadToEndAsync(StringsFilePath);
-
-            List<string> lines = new List<string>(content.Split("\n").Select(x => x.TrimEnd()));
-
-            Assert.AreEqual(7, lines.Count);
+            List<string> lines = [.. content.Split("\n").Select(x => x.TrimEnd())];
+            lines.Should().HaveCount(7);
         }
 
-        [Test]
+        [Fact]
         public async Task ReadLinesAsync()
         {
-            List<string> lines = new List<string>();
+            List<string> lines = [];
 
             await foreach (var str in FileIO.ReadLinesAsync(StringsFilePath))
             {
                 lines.Add(str);
             }
 
-            Assert.AreEqual(7, lines.Count);
+            lines.Should().HaveCount(7);
         }
 
-        [Test]
+        [Fact]
         public async Task ReadLinesAsyncWithCancellation()
         {
             var cts = new CancellationTokenSource();
 
-            List<string> lines = new List<string>();
+            List<string> lines = [];
 
             await foreach (var str in FileIO.ReadLinesAsync(StringsFilePath, cts.Token))
             {
@@ -54,7 +47,7 @@ namespace f14.Common.Tests
                 }
             }
 
-            Assert.AreEqual(5, lines.Count);
+            lines.Should().HaveCount(5);
         }
     }
 }

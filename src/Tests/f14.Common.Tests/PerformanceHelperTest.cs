@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 
 namespace f14.Common.Tests
 {
-    [TestFixture]
     public class PerformanceHelperTest
-    {        
-        [TestCase(5, 100)]
-        [TestCase(10, 100)]
+    {
+        [Theory]
+        [InlineData(5, 100)]
+        [InlineData(10, 100)]
         public void Do(int iterationCount, int iterationTime)
         {
             TimeSpan elapsedTime = TimeSpan.Zero;
@@ -22,17 +19,18 @@ namespace f14.Common.Tests
                 }
             }, ts => elapsedTime = ts);
 
-            Assert.True(elapsedTime.TotalMilliseconds >= iterationCount * iterationTime);
+            (elapsedTime.TotalMilliseconds >= iterationCount * iterationTime).Should().BeTrue();
         }
-                
-        [TestCase(500)]
-        [TestCase(1000)]
+
+        [Theory]
+        [InlineData(500)]
+        [InlineData(1000)]
         public async Task DoAsync(int awaitMills)
         {
             TimeSpan elapsedTime = TimeSpan.Zero;
             await PerformanceHelper.DoAsync(async () => await Task.Delay(awaitMills), ts => elapsedTime = ts);
 
-            Assert.True(elapsedTime.TotalMilliseconds >= awaitMills);
+            (elapsedTime.TotalMilliseconds >= awaitMills).Should().BeTrue();
         }
     }
 }
