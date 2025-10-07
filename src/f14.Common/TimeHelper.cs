@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace f14.Common
+﻿namespace f14
 {
     /// <summary>
     /// Provides helper methods for working with time.
@@ -21,7 +17,7 @@ namespace f14.Common
         public static List<TimeSpan> GetTimeZoneOffsetsBetweenHours(int hourStart, int hourEnd)
         {
             // Here our results
-            List<TimeSpan> results = new List<TimeSpan>();
+            List<TimeSpan> results = [];
             // Selects all timezone offsets
             var timeZoneOffsets = TimeZoneInfo.GetSystemTimeZones().Select(x => x.BaseUtcOffset).Distinct().ToList();
             // Iterates the timezone offsets to find all of them that the date and time in a specified hourly range.
@@ -51,7 +47,7 @@ namespace f14.Common
         public static List<TimeZoneInfo> GetTimeZonesBetweenHours(int hourStart, int hourEnd)
         {
             // Here our results
-            List<TimeZoneInfo> results = new List<TimeZoneInfo>();
+            List<TimeZoneInfo> results = [];
             // Selects all timezone
             var timezones = TimeZoneInfo.GetSystemTimeZones();
             // Iterates the timezone offsets to find all of them that the date and time in a specified hourly range.

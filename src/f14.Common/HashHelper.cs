@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace f14.Common
+namespace f14
 {
     /// <summary>
     /// Provides wrappers for hashing algorithms to calculate the hash value from given strings.
@@ -87,10 +87,10 @@ namespace f14.Common
         /// <returns>Hash value.</returns>
         public static string GetHashString(HashAlgorithm algorithm, string inputString)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (byte b in GetHash(algorithm, inputString))
             {
-                sb.Append(b.ToString("X2"));
+                sb.Append(b.ToString("X2", CultureInfo.InvariantCulture));
             }
             return sb.ToString();
         }
@@ -103,8 +103,8 @@ namespace f14.Common
         /// <returns>Hash value as array of bytes.</returns>
         public static byte[] GetHash(HashAlgorithm algorithm, string inputString)
         {
-            algorithm.ThrowIfNull(nameof(algorithm));
-            inputString.ThrowIfNull(nameof(inputString));
+            ArgumentNullException.ThrowIfNull(algorithm);
+            ArgumentNullException.ThrowIfNull(inputString);
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
     }

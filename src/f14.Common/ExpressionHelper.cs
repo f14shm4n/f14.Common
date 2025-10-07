@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace f14.Common
+namespace f14
 {
     /// <summary>
     /// Provides helper methods for expressions.
@@ -11,30 +10,30 @@ namespace f14.Common
         /// <summary>
         /// Creates setter action.
         /// </summary>
-        /// <typeparam name="O">Object type.</typeparam>
-        /// <typeparam name="P">Property type.</typeparam>
+        /// <typeparam name="TObject">Object type.</typeparam>
+        /// <typeparam name="TProperty">Property type.</typeparam>
         /// <param name="property">Property accessor.</param>
         /// <returns>The setter action.</returns>
-        public static Action<O, P>? CreateSetter<O, P>(Expression<Func<O, P>> property) => CreateSetterExpression(property)?.Compile();
+        public static Action<TObject, TProperty>? CreateSetter<TObject, TProperty>(Expression<Func<TObject, TProperty>> property) => CreateSetterExpression(property)?.Compile();
 
         /// <summary>
         /// Creates setter expression.
         /// </summary>
-        /// <typeparam name="OType">Object type.</typeparam>
-        /// <typeparam name="PType">Property type.</typeparam>
+        /// <typeparam name="TObject">Object type.</typeparam>
+        /// <typeparam name="TProperty">Property type.</typeparam>
         /// <param name="property">Property accessor.</param>
         /// <returns>The setter expression.</returns>
-        public static Expression<Action<OType, PType>>? CreateSetterExpression<OType, PType>(Expression<Func<OType, PType>> property)
+        public static Expression<Action<TObject, TProperty>>? CreateSetterExpression<TObject, TProperty>(Expression<Func<TObject, TProperty>> property)
         {
             var me = GetMemberExpression(property);
             if (me != null)
             {
-                var paramObject = Expression.Parameter(typeof(OType), "entity");
-                var paramPropertyValue = Expression.Parameter(typeof(PType), "value");
+                var paramObject = Expression.Parameter(typeof(TObject), "entity");
+                var paramPropertyValue = Expression.Parameter(typeof(TProperty), "value");
 
                 var assignAction = Expression.Assign(Expression.PropertyOrField(paramObject, me.Member.Name), paramPropertyValue);
 
-                return Expression.Lambda<Action<OType, PType>>(assignAction, paramObject, paramPropertyValue);
+                return Expression.Lambda<Action<TObject, TProperty>>(assignAction, paramObject, paramPropertyValue);
             }
             return null;
         }

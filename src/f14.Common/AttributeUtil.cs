@@ -1,8 +1,4 @@
-﻿using f14.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 
 namespace f14
@@ -63,7 +59,7 @@ namespace f14
             var me = ExpressionHelper.GetMemberExpression(property);
             if (me != null)
             {
-                var memberName = me.Member.Name;  
+                var memberName = me.Member.Name;
                 var ti = typeof(TTarget).GetTypeInfo();
                 MemberInfo? mi = null;
 
@@ -86,20 +82,7 @@ namespace f14
                 }
             }
 
-            return Enumerable.Empty<TAttribute>();
-        }
-
-        private static Type GetMemberInfoType(MemberTypes type)
-        {
-            return type switch
-            {
-                MemberTypes.Constructor => typeof(ConstructorInfo),
-                MemberTypes.Event => typeof(EventInfo),
-                MemberTypes.Field => typeof(FieldInfo),
-                MemberTypes.Method => typeof(MethodInfo),
-                MemberTypes.Property => typeof(PropertyInfo),
-                _ => throw new NotSupportedException($"Provided member type is not supported. MemberType: '{type}'.")
-            };
+            return [];
         }
     }
 }

@@ -66,18 +66,18 @@ namespace System.Net
         /// </summary>
         public bool EncodeValue { get; }
 
-        public bool Equals(QueryParameter other)
+        public bool Equals(QueryParameter? other)
         {
-            if (ReferenceEquals(this, other))
-                return true;
-
             if (other == null)
                 return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
 
             return Name == other.Name && Value == other.Value && Order == other.Order && EncodeValue == other.EncodeValue;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals((obj as QueryParameter)!);
         }
@@ -87,9 +87,18 @@ namespace System.Net
             return 0xF5F3198 ^ Name.GetHashCode(StringComparison.Ordinal) ^ Value.GetHashCode(StringComparison.Ordinal) ^ Order.GetHashCode() ^ EncodeValue.GetHashCode();
         }
 
-        private string GetDebuggerDisplay()
+        public static readonly IComparer<QueryParameter> Comparer = new QueryQueryParameterComparer();
+
+        private sealed class QueryQueryParameterComparer : IComparer<QueryParameter>
         {
-            return ToString();
+            public int Compare(QueryParameter? x, QueryParameter? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+                return x.Order.CompareTo(y.Order);
+            }
         }
     }
 }

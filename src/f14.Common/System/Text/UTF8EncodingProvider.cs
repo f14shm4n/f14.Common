@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace System.Text
+﻿namespace System.Text
 {
     /// <summary>
     /// Represents custom encoding provider which returns <see cref="Encoding.UTF8"/> for next encoding names included double quotes in the name of encoding: utf8, UTF8, utf-8, UTF-8.
     /// </summary>
     public class UTF8EncodingProvider : EncodingProvider
     {
-        private IEnumerable<string> EncodingNames
+        private static IEnumerable<string> EncodingNames
         {
             get
             {

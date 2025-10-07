@@ -1,33 +1,26 @@
-﻿using f14;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace System.Net
 {
     /// <summary>
-    /// Provides the base class for a query param builders.
+    /// Provides the class for a query param builders.
     /// </summary>
-    public abstract class QueryParamBuilder
+    /// <remarks>
+    /// Creates new instance of the builder.
+    /// </remarks>
+    public class QueryParamBuilder(string nameValueSeparator, string parametersSeparator)
     {
-        private readonly List<QueryParameter> _parameters = new List<QueryParameter>();
-        private readonly PredicateComparer<QueryParameter> _comparer = new PredicateComparer<QueryParameter>((x, y) => x.Order.CompareTo(y.Order));
-
-        /// <summary>
-        /// Creates new instance of the builder.
-        /// </summary>
-        protected QueryParamBuilder()
-        {
-        }
+        private readonly List<QueryParameter> _parameters = [];
 
         /// <summary>
         /// Gets the name and value separator.
         /// </summary>
-        public abstract string NameValueSeparator { get; }
+        public string NameValueSeparator { get; } = nameValueSeparator;
 
         /// <summary>
         /// Gets the query parameters separator.
         /// </summary>
-        public abstract string ParametersSeparator { get; }
+        public string ParametersSeparator { get; } = parametersSeparator;
 
         /// <summary>
         /// Adds new query parameter.
@@ -54,18 +47,16 @@ namespace System.Net
         /// <returns>String.</returns>
         public virtual string Build()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             int i = 0;
-            _parameters.Sort(_comparer);
+            _parameters.Sort(QueryParameter.Comparer);
             foreach (var p in _parameters)
             {
-                sb.Append($"{p.Name}{NameValueSeparator}{(p.EncodeValue ? WebUtility.UrlEncode(p.Value) : p.Value)}");
-
+                sb.Append(p.Name).Append(NameValueSeparator).Append(p.EncodeValue ? WebUtility.UrlEncode(p.Value) : p.Value);
                 if ((i + 1) < _parameters.Count)
                 {
                     sb.Append(ParametersSeparator);
                 }
-
                 i++;
             }
 

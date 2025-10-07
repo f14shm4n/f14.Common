@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace f14.Common
+namespace f14
 {
     /// <summary>
     /// Helpers methods for assemblies.

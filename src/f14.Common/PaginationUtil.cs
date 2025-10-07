@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace f14
+﻿namespace f14
 {
     /// <summary>
     /// Provides a pagination calculation methods.

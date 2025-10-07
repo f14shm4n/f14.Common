@@ -3,13 +3,11 @@
 namespace System.Net
 {
     /// <summary>
-    /// Represents the abstract URL builder that provides basic workflow.
+    /// Represents the URL builder that provides basic workflow.
     /// </summary>
-    public abstract class UrlBuilder
+    public class UrlBuilder(string baseAddress)
     {
-        private readonly UrlQueryBuilder _queryBuilder = new UrlQueryBuilder();
-
-        protected UrlBuilder() { }
+        private readonly UrlQueryBuilder _queryBuilder = new();
 
         /// <summary>
         /// Adds new query parameter.
@@ -26,7 +24,7 @@ namespace System.Net
         /// <summary>
         /// Gets the base address.
         /// </summary>
-        public abstract string BaseAddress { get; }
+        public string BaseAddress { get; } = baseAddress;
 
         /// <summary>
         /// Builds new <see cref="Uri"/>.
@@ -34,7 +32,7 @@ namespace System.Net
         /// <returns><see cref="Uri"/>.</returns>
         public virtual Uri Build()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.Append(BaseAddress);
 
             if (!BaseAddress.EndsWith('?'))

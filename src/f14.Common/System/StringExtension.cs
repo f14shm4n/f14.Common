@@ -14,7 +14,7 @@ namespace System
         /// <param name="source">String to truncate.</param>
         /// <param name="length">Required string length.</param>
         /// <returns>Truncated string.</returns>
-        public static string Truncate(this string source, int length) => source.Length <= length ? source : source.Substring(0, length);
+        public static string Truncate(this string source, int length) => source.Length <= length ? source : source[..length];
 
         /// <summary>
         /// Encodes the specified string to a base64 representation with <see cref="Encoding.UTF8"/>.

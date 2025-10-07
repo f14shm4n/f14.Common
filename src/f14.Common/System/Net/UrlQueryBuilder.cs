@@ -5,8 +5,8 @@
     /// </summary>
     public sealed class UrlQueryBuilder : QueryParamBuilder
     {
-        public override string NameValueSeparator => "=";
-
-        public override string ParametersSeparator => "&";
+        public UrlQueryBuilder() : base("=", "&")
+        {
+        }
     }
 }

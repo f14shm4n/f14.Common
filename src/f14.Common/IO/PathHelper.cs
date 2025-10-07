@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace f14.IO
 {
@@ -10,6 +7,8 @@ namespace f14.IO
     /// </summary>
     public sealed class PathHelper
     {
+        private static readonly string[] ExceptEntires = [" ", ""];
+
         /// <summary>
         /// Cuts the path to the specified number of sections. Sections of the path, separated by backslash - '\'.
         /// </summary>
@@ -35,7 +34,7 @@ namespace f14.IO
         /// <returns>A new path line, a new path at the beginning and at the end does not contain a slash.</returns>
         private static string RemoveSections(string path, int skip, bool useAltSeparatorChar)
         {
-            path.ThrowIfNull(nameof(path));
+            ArgumentNullException.ThrowIfNull(path);
 
             char separator;
 
@@ -51,10 +50,9 @@ namespace f14.IO
             }
 
             StringBuilder sb = new StringBuilder();
-            string[] parts = path
+            string[] parts = [.. path
                 .Split(separator)
-                .Except(new string[] { " ", "" })
-                .ToArray();
+                .Except(ExceptEntires)];
 
             for (int i = 0; i < parts.Length; i++)
             {

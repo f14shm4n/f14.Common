@@ -1,32 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace System.Net.Http
+﻿namespace System.Net.Http
 {
     /// <summary>
     /// Provides extensions methods for <see cref="HttpClient"/>.
     /// </summary>
     public static class HttpClientExtensions
     {
-        /// <summary>
-        /// Executes http request and return response message.
-        /// <para>
-        ///     This method process the redirect status codes explicitly.
-        /// </para>
-        /// </summary>
-        /// <param name="client">The http client instance.</param>
-        /// <param name="url">The desired url.</param>
-        /// <param name="headers">The request headers.</param>
-        /// <param name="maxRedirectAttempts">Max count of client redirect attempts.</param>
-        /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <returns>The asynchronous task with resulting object - <see cref="HttpResponseMessage"/>.</returns>
-        public static Task<HttpResponseMessage> GetAsync(this HttpClient client, string url, IDictionary<string, string>? headers, uint maxRedirectAttempts, CancellationToken cancellationToken)
-        {
-            return client.GetAsync(new Uri(url), headers, maxRedirectAttempts, cancellationToken);
-        }
-
         /// <summary>
         /// Executes http request and return response message.
         /// <para>
@@ -68,6 +46,11 @@ namespace System.Net.Http
                 var statusCode = (int)response.StatusCode;
                 if (statusCode > 300 && statusCode < 400)
                 {
+                    if (response.Headers.Location == null)
+                    {
+                        break;
+                    }
+
                     redirectCounter++;
                     uri = response.Headers.Location;
                 }

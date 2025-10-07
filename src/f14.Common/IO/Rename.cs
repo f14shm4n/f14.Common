@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace f14.IO
+﻿namespace f14.IO
 {
     /// <summary>
     /// Provides methods to read and write data to file.

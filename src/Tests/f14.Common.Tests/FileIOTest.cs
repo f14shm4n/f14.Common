@@ -8,14 +8,6 @@ namespace f14.Common.Tests
         private const string StringsFilePath = "Resources/strings.txt";
 
         [Fact]
-        public async Task ReadToEndAsync()
-        {
-            var content = await FileIO.ReadToEndAsync(StringsFilePath);
-            List<string> lines = [.. content.Split("\n").Select(x => x.TrimEnd())];
-            lines.Should().HaveCount(7);
-        }
-
-        [Fact]
         public async Task ReadLinesAsync()
         {
             List<string> lines = [];

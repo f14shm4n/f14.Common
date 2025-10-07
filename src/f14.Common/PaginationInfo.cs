@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace f14
+﻿namespace f14
 {
     /// <summary>
     /// The pagination info instance.

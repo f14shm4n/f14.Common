@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace f14.IO
+﻿namespace f14.IO
 {
     /// <summary>
     /// Provides methods to read and write data to file.
@@ -13,30 +9,17 @@ namespace f14.IO
         /// Writes string collection to the file.
         /// </summary>
         /// <param name="filePath">Path to the file.</param>
-        /// <param name="data">Sring collection.</param>
-        public static void WriteLines(string filePath, IEnumerable<string> data)
-        {
-            using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-            using var sw = new StreamWriter(st);
-            foreach (var s in data)
-            {
-                sw.WriteLine(s);
-            }
-        }
-
-        /// <summary>
-        /// Writes string collection to the file.
-        /// </summary>
-        /// <param name="filePath">Path to the file.</param>
-        /// <param name="data">Sring collection.</param>
+        /// <param name="lines">Sring collection.</param>
         /// <returns>Task.</returns>
-        public static async Task WriteLinesAsync(string filePath, IEnumerable<string> data)
+        public static async Task WriteLinesAsync(string filePath, IEnumerable<string> lines, CancellationToken cancellationToken = default)
         {
             using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
             using var sw = new StreamWriter(st);
-            foreach (var s in data)
+            foreach (var line in lines)
             {
-                await sw.WriteLineAsync(s).ConfigureAwait(false);
+                await sw.WriteLineAsync(line).ConfigureAwait(false);
+
+                cancellationToken.ThrowIfCancellationRequested();
             }
         }
 
@@ -45,20 +28,8 @@ namespace f14.IO
         /// </summary>
         /// <param name="filePath">Path to the file.</param>
         /// <param name="data">String data.</param>
-        public static void WriteData(string filePath, string data)
-        {
-            using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-            using var sw = new StreamWriter(st);
-            sw.Write(data);
-        }
-
-        /// <summary>
-        /// Writes string data to the file.
-        /// </summary>
-        /// <param name="filePath">Path to the file.</param>
-        /// <param name="data">String data.</param>
         /// <returns>Task.</returns>
-        public static async Task WriteDataAsync(string filePath, string data)
+        public static async Task WriteStingAsync(string filePath, string data)
         {
             using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
             using var sw = new StreamWriter(st);

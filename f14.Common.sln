@@ -9,6 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "f14.Common.Tests", "src\Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{45F4219C-26EF-4E45-9FA8-4EE825227658}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\nuget_publish.bat = scripts\nuget_publish.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{961AB84C-6BBB-4A1A-B9E3-2E303067D4FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +33,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{379E23D9-45E8-4274-8137-2399E3C3A3C4} = {961AB84C-6BBB-4A1A-B9E3-2E303067D4FB}
+		{F2C0974C-6AB4-49BA-8214-EEAF17AF93EA} = {961AB84C-6BBB-4A1A-B9E3-2E303067D4FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EFAEBF2-7056-4B70-95F6-F97F75FA327C}

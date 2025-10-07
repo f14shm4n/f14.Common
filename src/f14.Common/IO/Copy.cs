@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace f14.IO
+﻿namespace f14.IO
 {
     /// <summary>
     /// Provides methods to read and write data to file.
@@ -29,7 +26,7 @@ namespace f14.IO
                 throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + source.FullName);
             }
 
-            if (source.FullName.ToLower() == target.FullName.ToLower())
+            if (string.Equals(source.FullName, target.FullName, StringComparison.OrdinalIgnoreCase))
             {
                 throw new InvalidOperationException("Same locations.");
             }
