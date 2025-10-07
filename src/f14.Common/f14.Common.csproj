@@ -16,7 +16,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>NNET8</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>8.0.0.0</Version>
+    <Version>8.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
