@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
     <RootNamespace>f14</RootNamespace>
     <AssemblyName>f14.Common</AssemblyName>
     <Authors>f14shm4n</Authors>
@@ -11,11 +14,9 @@
     <PackageProjectUrl>https://github.com/f14shm4n/f14.Common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/f14shm4n/f14.Common</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>NetStandard</PackageTags>
+    <PackageTags>NNET8</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <LangVersion>8</LangVersion>
-    <Nullable>enable</Nullable>
-    <Version>2.1.7.1</Version>
+    <Version>8.0.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,21 +27,12 @@
     <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Linq.Async" Version="4.1.1" />
-  </ItemGroup>
-
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DocumentationFile>bin\Release\$(Platform)\f14.Common.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <NoWarn>1591;1701;1702;1705;1584;1658</NoWarn>
-    <CodeAnalysisRuleSet>../../f14.Toolkit.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
 </Project>

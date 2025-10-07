@@ -1,7 +1,4 @@
 ﻿using f14;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace System
 {
@@ -30,11 +27,6 @@ namespace System
         public static List<T> CreateList<T>(this int iterationCount, Func<int, int, T> factory)
         {
             return iterationCount.CreateEnumerable(factory).ToList();
-        }
-
-        public static async Task<List<T>> CreateListAsync<T>(this int iterationCount, Func<int, int, Task<T>> factory)
-        {
-            return await iterationCount.CreateEnumerableAsync(factory).ToListAsync().ConfigureAwait(false);
         }
     }
 }
