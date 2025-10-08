@@ -23,10 +23,22 @@ namespace System.ComponentModel
         /// <param name="properyNames">The desired property names.</param>
         public void RefreshProperties(params string[] properyNames)
         {
-            if (PropertyChanged == null) return;
+            if (properyNames is null)
+            {
+                return;
+            }
+
+            if (PropertyChanged == null)
+            {
+                return;
+            }
+
             foreach (var pName in properyNames)
             {
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(pName));
+                if (pName is not null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs(pName));
+                }
             }
         }
 

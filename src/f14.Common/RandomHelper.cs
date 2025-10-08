@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace f14
+﻿namespace f14
 {
     /// <summary>
     /// Provides methods to generate randome values.
     /// </summary>
     public static class RandomHelper
     {
-        private static readonly Random _rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        private static readonly Random _rnd = new((int)DateTime.Now.Ticks & 0x0000FFFF);
 
         /// <summary>
         /// Returns the random integer number.
@@ -19,6 +17,9 @@ namespace f14
         /// Returns the random non negative integer number which less than max.
         /// </summary>
         /// <param name="max">Max value.</param>
+        /// <remarks>
+        /// Do not use for cryptography.
+        /// </remarks>
         /// <returns>Random integer number.</returns>
         public static int Next(int max) => _rnd.Next(max);
 
@@ -27,6 +28,9 @@ namespace f14
         /// </summary>
         /// <param name="min">Min value.</param>
         /// <param name="max">Max value.</param>
+        /// <remarks>
+        /// Do not use for cryptography.
+        /// </remarks>
         /// <returns>Random integer number.</returns>
         public static int Next(int min, int max) => _rnd.Next(min, max);
 
@@ -35,12 +39,18 @@ namespace f14
         /// </summary>
         /// <param name="min">Min value.</param>
         /// <param name="max">Max value.</param>
+        /// <remarks>
+        /// Do not use for cryptography.
+        /// </remarks>
         /// <returns>Random integer number.</returns>
         public static int NextWithMax(int min, int max) => _rnd.Next(min, max + 1);
 
         /// <summary>
         /// Returns the random double number which greater or equals 0,0 and less than 1,0.
         /// </summary>
+        /// <remarks>
+        /// Do not use for cryptography.
+        /// </remarks>
         /// <returns>Random double number.</returns>
         public static double NextDouble() => _rnd.NextDouble();
 

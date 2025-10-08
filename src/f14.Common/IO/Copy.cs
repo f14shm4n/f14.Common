@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides methods to read and write data to file.
     /// </summary>
-    public static partial class FileIO
+    public static partial class IOHelper
     {
         /// <summary>
         /// Copy directory. [From MSDN Samples]
@@ -21,6 +21,9 @@
         /// <param name="overwriteFiles">Overwrite files if exists.</param>
         public static void CopyAll(DirectoryInfo source, DirectoryInfo target, bool overwriteFiles)
         {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(target);
+
             if (!source.Exists)
             {
                 throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + source.FullName);

@@ -4,6 +4,8 @@
     {
         public static TimeSpan CalculateDelay(this RetryPolicyInfo source, int retryAttempt)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             return source.DelayStrategy switch
             {
                 // Linear

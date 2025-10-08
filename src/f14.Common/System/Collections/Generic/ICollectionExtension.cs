@@ -21,6 +21,9 @@
         /// <param name="data">The items that should be added.</param>
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> data)
         {
+            ArgumentNullException.ThrowIfNull(collection);
+            ArgumentNullException.ThrowIfNull(data);
+
             foreach (var i in data)
             {
                 collection.Add(i);

@@ -17,6 +17,8 @@
         /// <inheritdoc />
         public override Encoding? GetEncoding(string name)
         {
+            ArgumentNullException.ThrowIfNull(name);
+
             var adjustedName = name.Trim('"');
 
             foreach (var encName in EncodingNames)

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace System.Collections.Generic
+﻿namespace System.Collections.Generic
 {
     /// <summary>
     /// Provides extesions methods for <see cref="IEnumerable{T}"/>.
@@ -15,6 +13,9 @@ namespace System.Collections.Generic
         /// <param name="action">Action to perform.</param>
         public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
+            ArgumentNullException.ThrowIfNull(collection);
+            ArgumentNullException.ThrowIfNull(action);
+
             foreach (T o in collection)
             {
                 action(o);
@@ -31,6 +32,9 @@ namespace System.Collections.Generic
         /// <returns>Filtered collection.</returns>        
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(keySelector);
+
             var knownKeys = new HashSet<TKey>();
             return source.Where(element => knownKeys.Add(keySelector(element)));
         }

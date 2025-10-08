@@ -14,14 +14,24 @@ namespace System
         /// <param name="source">String to truncate.</param>
         /// <param name="length">Required string length.</param>
         /// <returns>Truncated string.</returns>
-        public static string Truncate(this string source, int length) => source.Length <= length ? source : source[..length];
+        public static string Truncate(this string source, int length)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+
+            return source.Length <= length ? source : source[..length];
+        }
 
         /// <summary>
         /// Encodes the specified string to a base64 representation with <see cref="Encoding.UTF8"/>.
         /// </summary>
         /// <param name="source">String to encode.</param>
         /// <returns>Base64 string.</returns>
-        public static string ToBase64(this string source) => source.ToBase64(Encoding.UTF8);
+        public static string ToBase64(this string source)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+
+            return source.ToBase64(Encoding.UTF8);
+        }
 
         /// <summary>
         /// Encodes the specified string to a base64 representation with specific <see cref="Encoding"/>.
@@ -31,6 +41,9 @@ namespace System
         /// <returns>Base64 string.</returns>
         public static string ToBase64(this string source, Encoding encoding)
         {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(encoding);
+
             byte[] arr = encoding.GetBytes(source);
             return Convert.ToBase64String(arr);
         }

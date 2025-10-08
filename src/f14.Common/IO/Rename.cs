@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides methods to read and write data to file.
     /// </summary>
-    public static partial class FileIO
+    public static partial class IOHelper
     {
         /// <summary>
         /// Rename file.

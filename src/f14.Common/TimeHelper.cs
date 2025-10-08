@@ -14,7 +14,7 @@
         /// <returns>
         /// A collection of the <see cref="TimeSpan"/> that are represents the timezone offsets.
         /// </returns>
-        public static List<TimeSpan> GetTimeZoneOffsetsBetweenHours(int hourStart, int hourEnd)
+        public static ICollection<TimeSpan> GetTimeZoneOffsetsBetweenHours(int hourStart, int hourEnd)
         {
             // Here our results
             List<TimeSpan> results = [];
@@ -44,7 +44,7 @@
         /// <returns>
         /// A collection of the <see cref="TimeZoneInfo"/> that are represents the timezone offsets.
         /// </returns>
-        public static List<TimeZoneInfo> GetTimeZonesBetweenHours(int hourStart, int hourEnd)
+        public static ICollection<TimeZoneInfo> GetTimeZonesBetweenHours(int hourStart, int hourEnd)
         {
             // Here our results
             List<TimeZoneInfo> results = [];

@@ -18,8 +18,10 @@
         /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
         /// <exception cref="HttpRequestException"></exception>
         /// <returns>The asynchronous task with resulting object - <see cref="HttpResponseMessage"/>.</returns>
-        public static async Task<HttpResponseMessage> GetAsync(this HttpClient client, Uri uri, IDictionary<string, string>? headers, uint maxRedirectAttempts, CancellationToken cancellationToken)
+        public static async Task<HttpResponseMessage> GetAsync(this HttpClient client, Uri uri, IDictionary<string, string>? headers, uint maxRedirectAttempts, CancellationToken cancellationToken = default)
         {
+            ArgumentNullException.ThrowIfNull(client);
+
             maxRedirectAttempts = Math.Max(1, maxRedirectAttempts);
 
             uint redirectCounter = 0;
@@ -27,7 +29,7 @@
 
             do
             {
-                var message = new HttpRequestMessage
+                using var message = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
                     RequestUri = uri
@@ -58,7 +60,6 @@
                 {
                     break;
                 }
-
             } while (redirectCounter < maxRedirectAttempts);
 
             return response;

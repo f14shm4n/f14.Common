@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides methods to read and write data to file.
     /// </summary>
-    public static partial class FileIO
+    public static partial class IOHelper
     {
         /// <summary>
         /// Writes string collection to the file.
@@ -13,6 +13,9 @@
         /// <returns>Task.</returns>
         public static async Task WriteLinesAsync(string filePath, IEnumerable<string> lines, CancellationToken cancellationToken = default)
         {
+            ArgumentNullException.ThrowIfNull(filePath);
+            ArgumentNullException.ThrowIfNull(lines);
+
             using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
             using var sw = new StreamWriter(st);
             foreach (var line in lines)
@@ -31,6 +34,9 @@
         /// <returns>Task.</returns>
         public static async Task WriteStingAsync(string filePath, string data)
         {
+            ArgumentNullException.ThrowIfNull(filePath);
+            ArgumentNullException.ThrowIfNull(data);
+
             using var st = new FileStream(filePath, FileMode.Create, FileAccess.Write);
             using var sw = new StreamWriter(st);
             await sw.WriteAsync(data).ConfigureAwait(false);

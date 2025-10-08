@@ -6,7 +6,7 @@ namespace f14.IO
     /// <summary>
     /// Provides methods to read and write data to file.
     /// </summary>
-    public static partial class FileIO
+    public static partial class IOHelper
     {
         /// <summary>
         /// Asynchronous and consecutively reads lines from a file.
@@ -36,7 +36,7 @@ namespace f14.IO
         public static async IAsyncEnumerable<string> ReadLinesAsync(string filePath, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize, bool leaveOpen, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            await foreach (var line in ReadLinesAsync(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, leaveOpen, cancellationToken))
+            await foreach (var line in ReadLinesAsync(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, leaveOpen, cancellationToken).ConfigureAwait(false))
             {
                 yield return line;
             }
